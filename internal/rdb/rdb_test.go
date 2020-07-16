@@ -15,8 +15,8 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/google/uuid"
-	h "github.com/hibiken/asynq/internal/asynqtest"
-	"github.com/hibiken/asynq/internal/base"
+	h "github.com/cloudjjcc/asynq/internal/asynqtest"
+	"github.com/cloudjjcc/asynq/internal/base"
 )
 
 // TODO(hibiken): Get Redis address and db number from ENV variables.

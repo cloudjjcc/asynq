@@ -11,7 +11,7 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/hibiken/asynq/internal/base"
+	"github.com/cloudjjcc/asynq/internal/base"
 	"github.com/spf13/cobra"
 
 	homedir "github.com/mitchellh/go-homedir"

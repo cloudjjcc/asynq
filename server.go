@@ -15,9 +15,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hibiken/asynq/internal/base"
-	"github.com/hibiken/asynq/internal/log"
-	"github.com/hibiken/asynq/internal/rdb"
+	"github.com/cloudjjcc/asynq/internal/base"
+	"github.com/cloudjjcc/asynq/internal/log"
+	"github.com/cloudjjcc/asynq/internal/rdb"
 )
 
 // Server is responsible for managing the background-task processing.

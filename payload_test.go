@@ -11,8 +11,8 @@ import (
 
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	h "github.com/hibiken/asynq/internal/asynqtest"
-	"github.com/hibiken/asynq/internal/base"
+	h "github.com/cloudjjcc/asynq/internal/asynqtest"
+	"github.com/cloudjjcc/asynq/internal/base"
 )
 
 type payloadTest struct {

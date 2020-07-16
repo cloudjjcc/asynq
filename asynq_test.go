@@ -11,8 +11,8 @@ import (
 
 	"github.com/go-redis/redis/v7"
 	"github.com/google/go-cmp/cmp"
-	h "github.com/hibiken/asynq/internal/asynqtest"
-	"github.com/hibiken/asynq/internal/log"
+	h "github.com/cloudjjcc/asynq/internal/asynqtest"
+	"github.com/cloudjjcc/asynq/internal/log"
 )
 
 //============================================================================

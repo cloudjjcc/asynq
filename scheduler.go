@@ -8,8 +8,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/hibiken/asynq/internal/base"
-	"github.com/hibiken/asynq/internal/log"
+	"github.com/cloudjjcc/asynq/internal/base"
+	"github.com/cloudjjcc/asynq/internal/log"
 )
 
 type scheduler struct {

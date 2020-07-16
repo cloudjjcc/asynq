@@ -14,7 +14,7 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/google/uuid"
-	"github.com/hibiken/asynq/internal/base"
+	"github.com/cloudjjcc/asynq/internal/base"
 )
 
 // ZSetEntry is an entry in redis sorted set.

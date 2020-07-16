@@ -10,7 +10,7 @@ import (
 	"os"
 	"os/signal"
 
-	"github.com/hibiken/asynq"
+	"github.com/cloudjjcc/asynq"
 	"golang.org/x/sys/unix"
 )
 

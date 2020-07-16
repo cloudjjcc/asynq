@@ -13,7 +13,7 @@ import (
 	"time"
 
 	"github.com/go-redis/redis/v7"
-	"github.com/hibiken/asynq/internal/base"
+	"github.com/cloudjjcc/asynq/internal/base"
 	"github.com/spf13/cast"
 )
 
