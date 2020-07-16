@@ -7,6 +7,7 @@ package asynq
 import (
 	"crypto/tls"
 	"fmt"
+	"github.com/cloudjjcc/asynq/internal/base"
 	"net/url"
 	"strconv"
 	"strings"
@@ -216,4 +217,10 @@ func createRedisClient(r RedisConnOpt) *redis.Client {
 	default:
 		panic(fmt.Sprintf("asynq: unexpected type %T for RedisConnOpt", r))
 	}
+}
+
+// set redis base prefix
+// only can set once before client or server launch
+func SetRedisBasePrefix(prefix string) {
+	base.SetBasePrefix(prefix)
 }

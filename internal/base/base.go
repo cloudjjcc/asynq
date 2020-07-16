@@ -24,7 +24,7 @@ const Version = "0.10.0"
 const DefaultQueueName = "default"
 
 // Redis keys
-const (
+var (
 	AllServers      = "asynq:servers"                // ZSET
 	serversPrefix   = "asynq:servers:"               // STRING - asynq:ps:<host>:<pid>:<serverid>
 	AllWorkers      = "asynq:workers"                // ZSET
@@ -41,7 +41,30 @@ const (
 	KeyDeadlines    = "asynq:deadlines"              // ZSET
 	PausedQueues    = "asynq:paused"                 // SET
 	CancelChannel   = "asynq:cancel"                 // PubSub channel
+	once            sync.Once
 )
+
+// set base prefix
+// only can set once before client or server launch
+func SetBasePrefix(prefix string) {
+	once.Do(func() {
+		serversPrefix = prefix + "servers:"           // STRING - asynq:ps:<host>:<pid>:<serverid>
+		AllWorkers = prefix + "workers"               // ZSET
+		workersPrefix = prefix + "workers:"           // HASH   - asynq:workers:<host:<pid>:<serverid>
+		processedPrefix = prefix + "processed:"       // STRING - asynq:processed:<yyyy-mm-dd>
+		failurePrefix = prefix + "failure:"           // STRING - asynq:failure:<yyyy-mm-dd>
+		QueuePrefix = prefix + "queues:"              // LIST   - asynq:queues:<qname>
+		AllQueues = prefix + "queues"                 // SET
+		DefaultQueue = QueuePrefix + DefaultQueueName // LIST
+		ScheduledQueue = prefix + "scheduled"         // ZSET
+		RetryQueue = prefix + "retry"                 // ZSET
+		DeadQueue = prefix + "dead"                   // ZSET
+		InProgressQueue = prefix + "in_progress"      // LIST
+		KeyDeadlines = prefix + "deadlines"           // ZSET
+		PausedQueues = prefix + "paused"              // SET
+		CancelChannel = prefix + "cancel"             // PubSub channel
+	})
+}
 
 // QueueKey returns a redis key for the given queue name.
 func QueueKey(qname string) string {

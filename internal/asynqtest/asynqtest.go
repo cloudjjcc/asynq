@@ -7,6 +7,7 @@ package asynqtest
 
 import (
 	"encoding/json"
+	"github.com/cloudjjcc/asynq/internal/base"
 	"sort"
 	"testing"
 
@@ -14,7 +15,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/google/uuid"
-	"github.com/cloudjjcc/asynq/internal/base"
 )
 
 // ZSetEntry is an entry in redis sorted set.

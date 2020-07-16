@@ -1,4 +1,4 @@
-module github/cloudjjcc/asynq
+module github.com/cloudjjcc/asynq
 
 go 1.13
 

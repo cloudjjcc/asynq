@@ -10,11 +10,11 @@ import (
 	"testing"
 	"time"
 
+	h "github.com/cloudjjcc/asynq/internal/asynqtest"
+	"github.com/cloudjjcc/asynq/internal/base"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
 	"github.com/google/uuid"
-	h "github.com/cloudjjcc/asynq/internal/asynqtest"
-	"github.com/cloudjjcc/asynq/internal/base"
 )
 
 func TestCurrentStats(t *testing.T) {
