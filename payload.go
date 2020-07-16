@@ -7,9 +7,10 @@ package asynq
 import (
 	"encoding/json"
 	"fmt"
-	"time"
-
+	"github.com/mitchellh/mapstructure"
 	"github.com/spf13/cast"
+	"reflect"
+	"time"
 )
 
 // Payload holds arbitrary data needed for task execution.
@@ -217,4 +218,12 @@ func (p Payload) GetDuration(key string) (time.Duration, error) {
 	default:
 		return cast.ToDurationE(v)
 	}
+}
+
+// payload bind to struct
+func (p Payload) Bind(data interface{}) error {
+	if reflect.TypeOf(data).Kind() != reflect.Ptr {
+		return fmt.Errorf("bind param should be ptr to struct")
+	}
+	return mapstructure.Decode(p.data, data)
 }
