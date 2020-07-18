@@ -48,6 +48,7 @@ var (
 // only can set once before client or server launch
 func SetBasePrefix(prefix string) {
 	once.Do(func() {
+		AllServers = prefix + "servers"               // ZSET
 		serversPrefix = prefix + "servers:"           // STRING - asynq:ps:<host>:<pid>:<serverid>
 		AllWorkers = prefix + "workers"               // ZSET
 		workersPrefix = prefix + "workers:"           // HASH   - asynq:workers:<host:<pid>:<serverid>
