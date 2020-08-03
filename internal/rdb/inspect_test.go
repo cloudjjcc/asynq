@@ -6,7 +6,6 @@ package rdb
 
 import (
 	"fmt"
-	"sort"
 	"testing"
 	"time"
 

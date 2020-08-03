@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/cloudjjcc/asynq/internal/rdb"
 	"github.com/go-redis/redis/v7"
+	"github.com/hibiken/asynq/internal/rdb"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -69,5 +69,5 @@ func delall(cmd *cobra.Command, args []string) {
 		fmt.Println(err)
 		os.Exit(1)
 	}
-	fmt.Printf("Deleted all %d tasks in %q state\n", n, args[0])
+	fmt.Printf("Deleted all tasks in %q state\n", args[0])
 }

@@ -10,8 +10,8 @@ import (
 	"strings"
 	"text/tabwriter"
 
-	"github.com/cloudjjcc/asynq/internal/rdb"
 	"github.com/go-redis/redis/v7"
+	"github.com/hibiken/asynq/internal/rdb"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
@@ -43,7 +43,6 @@ func history(cmd *cobra.Command, args []string) {
 		DB:       viper.GetInt("db"),
 		Password: viper.GetString("password"),
 	})
-	r := rdb.NewRDB(c)
 
 	stats, err := i.History(days)
 	if err != nil {

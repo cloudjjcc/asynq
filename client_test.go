@@ -36,7 +36,7 @@ func TestClientEnqueueAt(t *testing.T) {
 		opts          []Option
 		wantRes       *Result
 		wantEnqueued  map[string][]*base.TaskMessage
-		wantScheduled []h.ZSetEntry
+		wantScheduled []base.Z
 	}{
 		{
 			desc:      "Process task immediately",

@@ -157,6 +157,12 @@ func DecodeMessage(s string) (*TaskMessage, error) {
 	return &msg, nil
 }
 
+// Z represents sorted set member.
+type Z struct {
+	Message *TaskMessage
+	Score   int64
+}
+
 // ServerStatus represents status of a server.
 // ServerStatus methods are concurrency safe.
 type ServerStatus struct {
@@ -281,6 +287,7 @@ func (c *Cancelations) Get(id string) (fn context.CancelFunc, ok bool) {
 //
 // See rdb.RDB as a reference implementation.
 type Broker interface {
+	Ping() error
 	Enqueue(msg *TaskMessage) error
 	EnqueueUnique(msg *TaskMessage, ttl time.Duration) error
 	Dequeue(qnames ...string) (*TaskMessage, time.Time, error)

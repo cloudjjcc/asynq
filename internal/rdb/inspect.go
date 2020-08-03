@@ -51,56 +51,6 @@ type DailyStats struct {
 	Time      time.Time
 }
 
-// EnqueuedTask is a task in a queue and is ready to be processed.
-type EnqueuedTask struct {
-	ID      uuid.UUID
-	Type    string
-	Payload map[string]interface{}
-	Queue   string
-}
-
-// InProgressTask is a task that's currently being processed.
-type InProgressTask struct {
-	ID      uuid.UUID
-	Type    string
-	Payload map[string]interface{}
-}
-
-// ScheduledTask is a task that's scheduled to be processed in the future.
-type ScheduledTask struct {
-	ID        uuid.UUID
-	Type      string
-	Payload   map[string]interface{}
-	ProcessAt time.Time
-	Score     int64
-	Queue     string
-}
-
-// RetryTask is a task that's in retry queue because worker failed to process the task.
-type RetryTask struct {
-	ID      uuid.UUID
-	Type    string
-	Payload map[string]interface{}
-	// TODO(hibiken): add LastFailedAt time.Time
-	ProcessAt time.Time
-	ErrorMsg  string
-	Retried   int
-	Retry     int
-	Score     int64
-	Queue     string
-}
-
-// DeadTask is a task in that has exhausted all retries.
-type DeadTask struct {
-	ID           uuid.UUID
-	Type         string
-	Payload      map[string]interface{}
-	LastFailedAt time.Time
-	ErrorMsg     string
-	Score        int64
-	Queue        string
-}
-
 // KEYS[1] -> asynq:queues
 // KEYS[2] -> asynq:in_progress
 // KEYS[3] -> asynq:scheduled
