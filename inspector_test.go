@@ -10,11 +10,11 @@ import (
 	"testing"
 	"time"
 
+	"github.com/cloudjjcc/asynq/internal/asynqtest"
+	h "github.com/cloudjjcc/asynq/internal/asynqtest"
+	"github.com/cloudjjcc/asynq/internal/base"
 	"github.com/google/go-cmp/cmp"
 	"github.com/google/go-cmp/cmp/cmpopts"
-	"github.com/hibiken/asynq/internal/asynqtest"
-	h "github.com/hibiken/asynq/internal/asynqtest"
-	"github.com/hibiken/asynq/internal/base"
 )
 
 func TestInspectorCurrentStats(t *testing.T) {

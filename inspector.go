@@ -10,8 +10,8 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cloudjjcc/asynq/internal/rdb"
 	"github.com/google/uuid"
-	"github.com/hibiken/asynq/internal/rdb"
 )
 
 // Inspector is a client interface to inspect and mutate the state of
