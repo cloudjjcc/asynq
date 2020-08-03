@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.11.0] - 2020-07-28
+
+### Added
+
+- `Inspector` type was added to monitor and mutate state of queues and tasks.
+- `HealthCheckFunc` and `HealthCheckInterval` fields were added to `Config` to allow user to specify a callback
+  function to check for broker connection.
+
 ## [0.10.0] - 2020-07-06
 
 ### Changed

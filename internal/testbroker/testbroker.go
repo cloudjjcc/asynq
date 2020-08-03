@@ -10,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/go-redis/redis/v7"
 	"github.com/cloudjjcc/asynq/internal/base"
+	"github.com/go-redis/redis/v7"
 )
 
 var errRedisDown = errors.New("asynqtest: redis is down")
@@ -178,6 +178,15 @@ func (tb *TestBroker) PublishCancelation(id string) error {
 		return errRedisDown
 	}
 	return tb.real.PublishCancelation(id)
+}
+
+func (tb *TestBroker) Ping() error {
+	tb.mu.Lock()
+	defer tb.mu.Unlock()
+	if tb.sleeping {
+		return errRedisDown
+	}
+	return tb.real.Ping()
 }
 
 func (tb *TestBroker) Close() error {

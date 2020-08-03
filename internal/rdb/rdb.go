@@ -12,8 +12,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/go-redis/redis/v7"
 	"github.com/cloudjjcc/asynq/internal/base"
+	"github.com/go-redis/redis/v7"
 	"github.com/spf13/cast"
 )
 
@@ -43,6 +43,11 @@ func NewRDB(client *redis.Client) *RDB {
 // Close closes the connection with redis server.
 func (r *RDB) Close() error {
 	return r.client.Close()
+}
+
+// Ping checks the connection with redis server.
+func (r *RDB) Ping() error {
+	return r.client.Ping().Err()
 }
 
 // KEYS[1] -> asynq:queues:<qname>
