@@ -6,6 +6,7 @@ package cmd
 
 import (
 	"fmt"
+	"github.com/cloudjjcc/asynq"
 	"io"
 	"os"
 	"strings"
@@ -24,6 +25,7 @@ var cfgFile string
 var uri string
 var db int
 var password string
+var prefix string
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -62,6 +64,7 @@ func init() {
 	rootCmd.PersistentFlags().StringVarP(&uri, "uri", "u", "127.0.0.1:6379", "redis server URI")
 	rootCmd.PersistentFlags().IntVarP(&db, "db", "n", 0, "redis database number (default is 0)")
 	rootCmd.PersistentFlags().StringVarP(&password, "password", "p", "", "password to use when connecting to redis server")
+	rootCmd.PersistentFlags().StringVar(&prefix, "prefix", "test:", "redis prefix")
 	viper.BindPFlag("uri", rootCmd.PersistentFlags().Lookup("uri"))
 	viper.BindPFlag("db", rootCmd.PersistentFlags().Lookup("db"))
 	viper.BindPFlag("password", rootCmd.PersistentFlags().Lookup("password"))
@@ -69,6 +72,9 @@ func init() {
 
 // initConfig reads in config file and ENV variables if set.
 func initConfig() {
+	if prefix != "" {
+		asynq.SetRedisBasePrefix(prefix)
+	}
 	if cfgFile != "" {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
