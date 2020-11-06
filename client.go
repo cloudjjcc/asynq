@@ -12,9 +12,9 @@ import (
 	"sync"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/cloudjjcc/asynq/internal/base"
 	"github.com/cloudjjcc/asynq/internal/rdb"
+	"github.com/google/uuid"
 )
 
 // A Client is responsible for scheduling tasks.
@@ -317,7 +317,54 @@ func (c *Client) enqueueAt(t time.Time, task *Task, opts ...Option) (*Result, er
 		Deadline: deadline,
 	}, nil
 }
-
+func (c *Client) EnqueueAsync(t time.Time, task *Task, opts ...Option) (*Result, <-chan error) {
+	c.mu.Lock()
+	defer c.mu.Unlock()
+	if defaults, ok := c.opts[task.Type]; ok {
+		opts = append(defaults, opts...)
+	}
+	opt := composeOptions(opts...)
+	deadline := noDeadline
+	if !opt.deadline.IsZero() {
+		deadline = opt.deadline
+	}
+	timeout := noTimeout
+	if opt.timeout != 0 {
+		timeout = opt.timeout
+	}
+	if deadline.Equal(noDeadline) && timeout == noTimeout {
+		// If neither deadline nor timeout are set, use default timeout.
+		timeout = defaultTimeout
+	}
+	msg := &base.TaskMessage{
+		ID:        uuid.New(),
+		Type:      task.Type,
+		Payload:   task.Payload.data,
+		Queue:     opt.queue,
+		Retry:     opt.retry,
+		Deadline:  deadline.Unix(),
+		Timeout:   int64(timeout.Seconds()),
+		UniqueKey: uniqueKey(task, opt.uniqueTTL, opt.queue),
+	}
+	errCh := make(chan error)
+	go func() {
+		var err error
+		now := time.Now()
+		if t.Before(now) || t.Equal(now) {
+			err = c.enqueue(msg, opt.uniqueTTL)
+		} else {
+			err = c.schedule(msg, t, opt.uniqueTTL)
+		}
+		errCh <- err
+	}()
+	return &Result{
+		ID:       msg.ID.String(),
+		Queue:    msg.Queue,
+		Retry:    msg.Retry,
+		Timeout:  timeout,
+		Deadline: deadline,
+	}, errCh
+}
 func (c *Client) enqueue(msg *base.TaskMessage, uniqueTTL time.Duration) error {
 	if uniqueTTL > 0 {
 		return c.rdb.EnqueueUnique(msg, uniqueTTL)
